@@ -2,6 +2,7 @@ package dag
 
 import (
 	"fmt"
+	"github.com/clarkmcc/go-dag/internal/diags"
 	"reflect"
 	"sync"
 	"testing"
