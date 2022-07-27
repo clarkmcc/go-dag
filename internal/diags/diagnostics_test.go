@@ -6,8 +6,6 @@ import (
 	"reflect"
 	"strings"
 	"testing"
-
-	"github.com/hashicorp/go-multierror"
 )
 
 func TestBuild(t *testing.T) {
@@ -48,24 +46,6 @@ func TestBuild(t *testing.T) {
 				{
 					Severity: Error,
 					Summary:  "oh no bad",
-				},
-			},
-		},
-		"multierror.Error": {
-			func(diags Diagnostics) Diagnostics {
-				err := multierror.Append(nil, errors.New("bad thing A"))
-				err = multierror.Append(err, errors.New("bad thing B"))
-				diags = diags.Append(err)
-				return diags
-			},
-			[]diagFlat{
-				{
-					Severity: Error,
-					Summary:  "bad thing A",
-				},
-				{
-					Severity: Error,
-					Summary:  "bad thing B",
 				},
 			},
 		},

@@ -3,8 +3,6 @@ package diags
 import (
 	"bytes"
 	"fmt"
-	"github.com/hashicorp/errwrap"
-	multierror "github.com/hashicorp/go-multierror"
 	"sort"
 )
 
@@ -55,20 +53,8 @@ func (diags Diagnostics) Append(new ...interface{}) Diagnostics {
 			diags = diags.Append(ti.Diagnostics) // unwrap
 		case NonFatalError:
 			diags = diags.Append(ti.Diagnostics) // unwrap
-		case *multierror.Error:
-			for _, err := range ti.Errors {
-				diags = append(diags, nativeError{err})
-			}
 		case error:
-			switch {
-			case errwrap.ContainsType(ti, Diagnostics(nil)):
-				// If we have an errwrap wrapper with a Diagnostics hiding
-				// inside then we'll unpick it here to get access to the
-				// individual diagnostics.
-				diags = diags.Append(errwrap.GetType(ti, Diagnostics(nil)))
-			default:
-				diags = append(diags, nativeError{ti})
-			}
+			diags = append(diags, nativeError{ti})
 		default:
 			panic(fmt.Errorf("can't construct diagnostic(s) from %T", item))
 		}

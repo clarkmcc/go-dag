@@ -3,10 +3,9 @@ package dag
 import (
 	"fmt"
 	"github.com/clarkmcc/go-dag/internal/diags"
+	"github.com/clarkmcc/go-dag/internal/multierror"
 	"sort"
 	"strings"
-
-	"github.com/hashicorp/go-multierror"
 )
 
 // AcyclicGraph is a specialization of Graph that cannot have cycles.

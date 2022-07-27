@@ -7,6 +7,7 @@ This is a directed acyclic graph implementation in Go written by the Terraform t
 * Request the ancestors or descendents of a specific vertex.
 * Breadth-first and depth-first traversals.
 * Reverse-breadth-first and reverse-depth-first traversals.
+* No dependencies
 
 ## Examples
 * [Ancestors](examples/ancestors_test.go)
